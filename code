@@ -1,0 +1,99 @@
+#define XAXIS A0 // X-axis
+#define YAXIS A1 // Y-axis
+//#define ZAXIS A2 //XXXXX
+#define m11 2
+#define m12 3
+#define m21 4
+#define m22 5
+Long x; //Variable for storing X coordinates
+Long y; //Variable for storing Y coordinates
+Long z; //Variable for storing Z coordinates
+In e, f, g, h;
+Void setup ()
+{
+  Serial. Begin(9600); 
+  lcd.begin (16, 2); 
+  Pin Mode (XAXIS, INPUT);
+  Pin Mode (YAXIS, INPUT);
+  //pin Mode (ZAXIS, INPUT);
+}
+Void loop ()
+{
+  x = analog Read (XAXIS); //Reads X coordinates
+  y = analog Read (YAXIS); //Reads Y coordinates
+  //z = analog Read (ZAXIS); //Reads Z coordinates (Not Used)
+  Serial. Print ("XAXIS="); Serial.println(x);
+  Serial. Print ("YAXIS="); Serial.println(y);
+   Serial.println ("---------------------"); 
+  Delay (700);
+    If(y>490)  
+    {      
+     Forward (); 
+       Delay (500); 
+    }
+    Else if(y<370) 
+    {
+      Backward (); 
+      Delay (500);
+    }
+    Else if(x<370) 
+      {
+       Right ();
+        Delay (500);
+      }
+    Else if(x>490)
+      {
+         Left ();
+        Delay (500);
+      }
+    Else
+      {
+        Stop ();
+       Serial.println("-------NORMAL-------"); 
+      }
+}
+Void forward () 
+{
+  Serial.println ("FORWARD ");
+  DigitalWrite (m11, HIGH);
+  DigitalWrite (m12, LOW);
+  Digital Write (m21,HIGH);
+  digital Write(m22,LOW);
+ // delay (500);
+}
+Void backward () 
+{
+  Serial.println("BACKWARD ");
+  digitalWrite(m11,LOW);
+  digitalWrite(m12,HIGH);
+  digitalWrite(m21,LOW);
+  digitalWrite(m22,HIGH);
+  //delay(500);
+}
+void right () 
+{
+  Serial.println("RIGHT");
+ digitalWrite(m11,LOW);
+  digitalWrite(m12,HIGH);
+  digitalWrite(m21,HIGH);
+  digitalWrite(m22,LOW);
+ // delay(500);
+}
+void left () 
+{
+  Serial.println("LEFT");
+  digitalWrite(m11,HIGH);
+  digitalWrite(m12,LOW);
+  digitalWrite(m21,LOW);
+  digitalWrite(m22,HIGH);
+ // delay(500);
+}
+void stopp () 
+{
+  Serial.println("MOTOR STOP");
+  digitalWrite(m11,LOW);
+  digitalWrite(m12,LOW);
+  digitalWrite(m21,LOW);
+  digitalWrite(m22,LOW);
+ // delay(500);
+}
